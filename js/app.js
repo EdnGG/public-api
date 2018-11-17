@@ -1,10 +1,7 @@
-$(document).ready( ()=> {
+function printModal() {
+    console.log("Modal container works :)")
 
-// Creating the modal container
-    
-const gallery = document.querySelector('.gallery')
-
-const modalContainer = `
+    const modalContainer = `
 <div class="modal-container" >
     <div class="modal">
         <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
@@ -26,7 +23,17 @@ const modalContainer = `
         <button type="button" id="modal-next" class="modal-next btn">Next</button>
     </div>
 </div>`
-gallery.innerHTML = modalContainer;
+    gallery.innerHTML = modalContainer;
+    
+}
+
+$(document).ready( ()=> {
+
+// Creating the modal container
+    
+const gallery = document.querySelector('.gallery')
+
+
 
 // Creating and apendding the Input serch Element
 const formContainer = document.querySelector('.search-container')
@@ -60,6 +67,8 @@ fetch('https://randomuser.me/api/?results=12')
 
 })
 
+
+
 function mockup (datos)  {
     
     let html = '';
@@ -67,7 +76,7 @@ function mockup (datos)  {
            console.log(datos.length)
             html += 
             `
-            <div class="card">
+            <div class="card" onClick="printModal()">
             <div class="card-img-container">
                 <img class="card-img" src="${datos[i].picture.medium}" alt="profile picture">
             </div>
@@ -79,21 +88,13 @@ function mockup (datos)  {
             </div>
             `
             gallery.innerHTML = html;
-            //console.log(html)
             
+    
         }
-    // En este snipped de codigo no me funciona si no guardo el html en otra variable, 
-    //Esto es lo que hago en el snipped de codigo abajo
-    // html.addEventListener('click', ()=> {
-    //     alert("works");
-    // })   
-
-    // Este codigo funciona pero solo cuando doy click al primer elemento  
-    const html2 = document.querySelector('.card')
-    html2.addEventListener('click', ()=> {
-        alert("works");
-    })   
+    
 }
+
+
     
 
 
