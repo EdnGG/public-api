@@ -3,7 +3,7 @@ $(document).ready( ()=> {
 // Creating the modal container
     
 const gallery = document.querySelector('.gallery')
-const body = document.querySelector('body')
+
 const modalContainer = `
 <div class="modal-container" >
     <div class="modal">
@@ -61,7 +61,7 @@ fetch('https://randomuser.me/api/?results=12')
 })
 
 function mockup (datos)  {
-    //const gallery = document.querySelector('.gallery')
+    
     let html = '';
         for( let i = 0; i < datos.length; i+= 1) {
            console.log(datos.length)
@@ -79,28 +79,23 @@ function mockup (datos)  {
             </div>
             `
             gallery.innerHTML = html;
-            console.log(html)
-
-            // function dos () {
-            //     const html2 = document.querySelectorAll('.card');
-            //     html2.addEventListener('click', () => {
-            //         alert("works");
-            //     })
-            //}
+            //console.log(html)
             
-            
-        }   
+        }
+    // En este snipped de codigo no me funciona si no guardo el html en otra variable, 
+    //Esto es lo que hago en el snipped de codigo abajo
+    // html.addEventListener('click', ()=> {
+    //     alert("works");
+    // })   
 
-    //let html2 = document.querySelectorAll('.card');
-        
-        // //let html2 = document.querySelectorAll('.card');
-        // html2.addEventListener('click', ()=> {
-        // alert("works");
-        // })
-
+    // Este codigo funciona pero solo cuando doy click al primer elemento  
+    const html2 = document.querySelector('.card')
+    html2.addEventListener('click', ()=> {
+        alert("works");
+    })   
 }
+    
 
-let allCards = document.querySelectorAll('.card');
 
 
 
