@@ -1,105 +1,127 @@
-function printModal() {
-    console.log("Modal container works :)")
+// making request with FETCH    
+fetch('https://randomuser.me/api/?results=12')
+    .then(res => res.json())
+    .then(data => {
+        const datos = data.results;
+        console.log(`Request con Fetch:`, datos)
+        mockup(datos) // callback function
 
-    const modalContainer = `
-<div class="modal-container" >
-    <div class="modal">
-        <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
-        <div class="modal-info-container">
-            <img class="modal-img" src="https://placehold.it/125x125" alt="profile picture">
-            <h3 id="name" class="modal-name cap">name</h3>
-            <p class="modal-text">email</p>
-            <p class="modal-text cap">city</p>
-            <hr>
-                <p class="modal-text">(555) 555-5555</p>
-                <p class="modal-text">123 Portland Ave., Portland, OR 97204</p>
-                <p class="modal-text">Birthday: 10/21/2015</p>
-        </div>
-    </div>
+    })
 
-                
-    <div class="modal-btn-container">                   
-        <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
-        <button type="button" id="modal-next" class="modal-next btn">Next</button>
-    </div>
-</div>`
-    gallery.innerHTML = modalContainer;
-    
-}
+// making request with AJAX
+$.ajax({
+    url: 'https://randomuser.me/api/?results=12&inc=name,location,email,picture,cell,dob&nat=NZ,US',
+    dataType: 'json',
+    success: function (data) {
+        console.log(`Request con Ajax:`, data);
+    }
+});
 
-$(document).ready( ()=> {
-
-// Creating the modal container
-    
+// Seleccionando y guardando en una variable el contenedor donde se imprimira la galeria
 const gallery = document.querySelector('.gallery')
 
+//Funcion que cierra el Modal Container
+function closeModal (datos) {
+    alert('Works closeModal')
+    let modalContainerButton = document.querySelector('.modal-container')
+    modalContainerButton.style.display = 'none';
+    //mockup(datos);
+    //let gallery2 = document.querySelector('.gallery')
+    gallery.style.display = 'block';
+   
+}
 
+//Funcion que imprime el Modal Container
+function printModal(datos) {
+    console.log("Modal container works :)")
+        let modalContainer = `
+            <div class="modal-container" onClick="" >
+                <div class="modal">
+                    <button type="button" id="modal-close-btn" class="modal-close-btn" onClick="closeModal()"><strong>X</strong></button>
+                    <div class="modal-info-container">
+                        <img class="modal-img" src="https://placehold.it/125x125" alt="profile picture">
+                        <h3 id="name" class="modal-name cap">${datos[i].name.first}</h3>
+                        <p class="modal-text">${datos[i].email}</p>
+                        <p class="modal-text cap">${datos[i].location.city}</p>
+                        <hr>
+                            <p class="modal-text">(555) 555-5555</p>
+                            <p class="modal-text">123 Portland Ave., Portland, OR 97204</p>
+                            <p class="modal-text">Birthday: 10/21/2015</p>
+                    </div>
+                </div>
+
+
+                <div class="modal-btn-container">                   
+                    <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
+                    <button type="button" id="modal-next" class="modal-next btn">Next</button>
+                </div>
+            </div>`
+        gallery.innerHTML = modalContainer;
+}
 
 // Creating and apendding the Input serch Element
 const formContainer = document.querySelector('.search-container')
     const formBrowser = ` 
     <form action="#" method="get">
         <input type="search" id="search-input" class="search-input" placeholder="Search...">
-        <input type="submit" value="&#x1F50D;" id="serach-submit" class="search-submit">
+        <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
     </form>`
 
 formContainer.innerHTML = formBrowser;
-// finish the snippe code of Creating and apendding the Input serch Element
 
+//Seleccionando y alamcenando en variables los dos text input del buscador
+const searchInput = document.getElementById('search-input');
+const submit = document.getElementById('search-submit');
 
-// making request with AJAX
-$.ajax({
-        url: 'https://randomuser.me/api/?results=12&inc=name,location,email,picture,cell,dob&nat=NZ,US',
-        dataType: 'json',
-        success: function (data) {
-            console.log(`Request con Ajax:`, data);
-        }
-});
-
-    
-// making request with FETCH    
-fetch('https://randomuser.me/api/?results=12') 
-    .then(res => res.json())
-    .then(data => { 
-        const datos = data.results;
-        console.log(`Request con Fetch:`, datos)
-        mockup(datos) // callback function
-
+//Agregando el eventListener al boton 'submit'
+// Este ejecutara la funcion filter() 
+submit.addEventListener('click', ()=>{
+    let empleado = searchInput.value.toLowerCase()
+    filter (empleado)
 })
 
-
-
+function filter(empleado) {
+//Guardando todos los elementos de la coleccion de empleados
+    let card1 = document.querySelectorAll('.card')
+// Aplicando un ciclo 'for' para iteractuar con la coleccion guardada en variable 'card1' 
+    for (let i = 0; i < card1.length; i++) {
+// En esta linea guardamos el contenido que tiene el elemento con la clase 'card-name'
+        let personName = card1[i].querySelector('.card-name').textContent;
+// Si el contenido del valor del elemento es '0'? no se despliega nada 
+// Y dejamos los elementos tal cual
+    if (personName.indexOf(empleado) === 0) {
+            console.log(card1[i])
+            card1[i].style.display = "";
+// De otra forma mostramos los c
+        } else {
+            console.log(card1[i])
+            card1[i].style.display = "none";
+        }
+    }
+}
+// Esta funcion se ejecuta cuando Fetch resuelve la promesa
 function mockup (datos)  {
-    
     let html = '';
+    
         for( let i = 0; i < datos.length; i+= 1) {
            console.log(datos.length)
+           
             html += 
-            `
-            <div class="card" onClick="printModal()">
-            <div class="card-img-container">
-                <img class="card-img" src="${datos[i].picture.medium}" alt="profile picture">
-            </div>
-            <div class="card-info-container">
-                <h3 id="name" class="card-name cap">${datos[i].name.first} , ${datos[i].name.last}</h3>
-                <p class="card-text">${datos[i].email}</p>
-                <p class="card-text cap">${datos[i].location.city}, ${datos[i].location.state}</p>
-            </div>
-            </div>
-            `
+                `
+                <div class="card" onClick="printModal(datos)">
+                <div class="card-img-container">
+                    <img class="card-img" src="${datos[i].picture.medium}" alt="profile picture">
+                </div>
+                <div class="card-info-container">
+                    <h3 id="name" class="card-name cap">${datos[i].name.first} , ${datos[i].name.last}</h3>
+                    <p class="card-text">${datos[i].email}</p>
+                    <p class="card-text cap">${datos[i].location.city}, ${datos[i].location.state}</p>
+                </div>
+                </div>
+                `
             gallery.innerHTML = html;
-            
-    
         }
-    
 }
 
 
-    
-
-
-
-
-       
-})
 
