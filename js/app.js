@@ -23,41 +23,15 @@ const gallery = document.querySelector('.gallery')
 //Funcion que cierra el Modal Container
 function closeModal (datos) {
     alert('Works closeModal')
+
     let modalContainerButton = document.querySelector('.modal-container')
     modalContainerButton.style.display = 'none';
-    //mockup(datos);
-    //let gallery2 = document.querySelector('.gallery')
-    gallery.style.display = 'block';
+
+    let gallery2 = document.querySelectorAll('.gallery')
+    gallery2.style.display = 'block';
    
 }
 
-//Funcion que imprime el Modal Container
-function printModal(datos) {
-    console.log("Modal container works :)")
-        let modalContainer = `
-            <div class="modal-container" onClick="" >
-                <div class="modal">
-                    <button type="button" id="modal-close-btn" class="modal-close-btn" onClick="closeModal()"><strong>X</strong></button>
-                    <div class="modal-info-container">
-                        <img class="modal-img" src="https://placehold.it/125x125" alt="profile picture">
-                        <h3 id="name" class="modal-name cap">${datos[i].name.first}</h3>
-                        <p class="modal-text">${datos[i].email}</p>
-                        <p class="modal-text cap">${datos[i].location.city}</p>
-                        <hr>
-                            <p class="modal-text">(555) 555-5555</p>
-                            <p class="modal-text">123 Portland Ave., Portland, OR 97204</p>
-                            <p class="modal-text">Birthday: 10/21/2015</p>
-                    </div>
-                </div>
-
-
-                <div class="modal-btn-container">                   
-                    <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
-                    <button type="button" id="modal-next" class="modal-next btn">Next</button>
-                </div>
-            </div>`
-        gallery.innerHTML = modalContainer;
-}
 
 // Creating and apendding the Input serch Element
 const formContainer = document.querySelector('.search-container')
@@ -108,7 +82,7 @@ function mockup (datos)  {
            
             html += 
                 `
-                <div class="card" onClick="printModal(datos)">
+                <div class="card" onClick="printModal('${encodeURI(JSON.stringify(datos[i]))}')">
                 <div class="card-img-container">
                     <img class="card-img" src="${datos[i].picture.medium}" alt="profile picture">
                 </div>
@@ -122,6 +96,38 @@ function mockup (datos)  {
             gallery.innerHTML = html;
         }
 }
+
+//Funcion que imprime el Modal Container
+function printModal(datos) {
+    datos = JSON.parse(decodeURI(datos));
+    console.log("Modal container works :)")
+    
+    let modalContainer = `
+            <div class="modal-container">
+                <div class="modal">
+                    <button type="button" id="modal-close-btn" class="modal-close-btn" onClick="closeModal()"><strong>X</strong></button>
+                    <div class="modal-info-container">
+                        <img class="modal-img" src="${datos.picture.large}" alt="profile picture">
+                        <h3 id="name" class="modal-name cap">${datos.name.first}</h3>
+                        <p class="modal-text">${datos.email}</p>
+                        <p class="modal-text cap">${datos.location.city}</p>
+                        <hr>
+                            <p class="modal-text">${datos.phone}</p>
+                            <p class="modal-text">${datos.location.city} , ${datos.location.state}</p>
+                            <p class="modal-text">${datos.dob.date}</p>
+                    </div>
+                </div>
+
+
+                <div class="modal-btn-container">                   
+                    <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
+                    <button type="button" id="modal-next" class="modal-next btn">Next</button>
+                </div>
+            </div>`
+    gallery.innerHTML = modalContainer;
+
+}
+
 
 
 
