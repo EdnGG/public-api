@@ -1,15 +1,3 @@
-// making request with FETCH    
-let empleados = []
-
-fetch('https://randomuser.me/api/?results=12')
-    .then(res => res.json())
-    .then(data =>  {
-         empleados = data.results
-        console.log(`Request con Fetch:`, empleados)
-        mockup() // callback function
-
-    })
-
 // making request with AJAX
 $.ajax({
     url: 'https://randomuser.me/api/?results=12&inc=name,location,email,picture,cell,dob&nat=NZ,US',
@@ -19,62 +7,33 @@ $.ajax({
     }
 });
 
+//Creando un array donde se guardara la respuesta de Fetch, haciendo esta una variable global
+let empleados = []
+
 // Seleccionando y guardando en una variable el contenedor donde se imprimira la galeria
 const gallery = document.querySelector('.gallery')
 
+// making request with FETCH    
+fetch('https://randomuser.me/api/?results=12')
+    .then(res => res.json())
+    .then(data =>  {
+        // La respuesta de fetch se asigna al array 'empleados'
+        empleados = data.results 
+        console.log(`Request con Fetch:`, empleados)
+        // funcion callback
+        mockup(); 
 
-// Creating and apendding the Input serch Element
-const formContainer = document.querySelector('.search-container')
-    const formBrowser = ` 
-    <form action="#" method="get">
-        <input type="search" id="search-input" class="search-input" placeholder="Search...">
-        <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
-    </form>`
+    })
 
-formContainer.innerHTML = formBrowser;
-
-//Seleccionando y alamcenando en variables los dos text input del buscador
-const searchInput = document.getElementById('search-input');
-const submit = document.getElementById('search-submit');
-
-//Agregando el eventListener al boton 'submit'
-// Este ejecutara la funcion filter() 
-submit.addEventListener('click', ()=>{
-    let empleado = searchInput.value.toLowerCase()
-    filter (empleado)
-})
-
-function filter(empleado) {
-//Guardando todos los elementos de la coleccion de empleados
-    let card1 = document.querySelectorAll('.card')
-// Aplicando un ciclo 'for' para iteractuar con la coleccion guardada en variable 'card1' 
-    for (let i = 0; i < card1.length; i++) {
-// En esta linea guardamos el contenido que tiene el elemento con la clase 'card-name'
-        let personName = card1[i].querySelector('.card-name').textContent;
-// Si el contenido del valor del elemento es '0'? no se despliega nada 
-// Y dejamos los elementos tal cual
-    if (personName.indexOf(empleado) === 0) {
-            console.log(card1[i])
-            card1[i].style.display = "";
-// De otra forma mostramos los c
-        } else {
-            console.log(card1[i])
-            card1[i].style.display = "none";
-        }
-    }
-}
 // Esta funcion se ejecuta cuando Fetch resuelve la promesa
-function mockup (){
-    
-
+function mockup() {
     let html = '';
-    
-        for( let i = 0; i < empleados.length; i+= 1) {
-           console.log(empleados.length)
-           
-            html += 
-                `
-                <div class="card" onClick="printModal('${i}')">
+    for (let i = 0; i < empleados.length; i += 1) {
+        console.log(empleados.length)
+//En el metodo printModal() se pasa por parametro el index de array empleados obtenido de la 
+//iteracion con el ciclo 'for' y  guardado con el nombre de la variable 'i'
+        html +=
+            `   <div class="card" onClick="printModal('${i}')">
                 <div class="card-img-container">
                     <img class="card-img" src="${empleados[i].picture.medium}" alt="profile picture">
                 </div>
@@ -84,9 +43,54 @@ function mockup (){
                     <p class="card-text cap">${empleados[i].location.city}, ${empleados[i].location.state}</p>
                 </div>
                 </div>
-                `
-            gallery.innerHTML = html;
+            `
+        // 
+        gallery.innerHTML = html;
+    }
+}
+
+
+// Selecionando y guardando el container donde estara el formulario de busqueda
+const formContainer = document.querySelector('.search-container')
+// Creando el formulario de busqueda
+const formBrowser = ` 
+    <form action="#" method="get">
+        <input type="search" id="search-input" class="search-input" placeholder="Search...">
+        <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
+    </form>`
+//Agregandolo al documento
+formContainer.innerHTML = formBrowser;
+
+//Seleccionando y alamcenando en variables los dos text input del buscador
+const searchInput = document.getElementById('search-input');
+const submit = document.getElementById('search-submit');
+
+//Agregando el eventListener al boton 'submit'
+submit.addEventListener('click', ()=>{
+//Guardando el valor que el cliente escriba en el campo searchInput 
+    let empleado = searchInput.value.toLowerCase()
+// Ejecutando la  funcion filter y pasando por parametro la variable 'empleado' 
+    filter (empleado)
+})
+
+function filter(empleado) {
+//Guardando todos los elementos de la coleccion de empleados
+    let card1 = document.querySelectorAll('.card')
+// Aplicando un ciclo 'for' para iterar con la coleccion guardada en variable 'card1' 
+    for (let i = 0; i < card1.length; i++) {
+// En esta linea guardamos el contenido que tiene el elemento con la clase 'card-name'
+        let personName = card1[i].querySelector('.card-name').textContent;
+// Si el contenido del valor del elemento es '0'? no se despliega nada 
+// Y dejamos los elementos tal cual
+        if (personName.indexOf(empleado) === 0) {
+                console.log(card1[i])
+                card1[i].style.display = "";
+// De otra forma mostramos los elementos que coincidan con la busqueda del usuario
+        } else {
+                console.log(card1[i])
+                card1[i].style.display = "none";
         }
+    }
 }
 
 //Funcion que imprime el Modal Container
@@ -105,7 +109,7 @@ function printModal(i) {
                         <p class="modal-text cap">${empleados[i].location.city}</p>
                         <hr>
                             <p class="modal-text">${empleados[i].phone}</p>
-                            <p class="modal-text">${empleados[i].location.city} , ${empleados[i]}.location.state}</p>
+                            <p class="modal-text">${empleados[i].location.city} , ${empleados[i].location.state}</p>
                             <p class="modal-text">${empleados[i].dob.date}</p>
                     </div>
                 </div>
