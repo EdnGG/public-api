@@ -139,9 +139,17 @@ function printModal(i) {
 
 function prevModal(i) {
     console.log('function prevModal works :)')
-    //let card = document.querySelectorAll('.card')
+
+//Aqui va a mostrar el elemento anterior en el que se encuentra ahora
     printModal(i - 1);
-    if ( i <= 0){
+    
+    if ( i === 1){
+//Aqui se le asigna un nuevo valor a 'i' que va a contener el numero 
+//total de empleados 
+        i = 11;
+//aqui se llama a la function 'printModal()' ya con el nuevo valor de 'i' - 1
+//que da como resultado el ultimo elemento del array 'empleados'
+        printModal(i -1);
         console.log('heyPrev')
         
     }
@@ -149,13 +157,12 @@ function prevModal(i) {
 
 function nextModal(i) {
     console.log('function nextModal works :)')    
-    //let card = document.querySelectorAll('.card')
 
     printModal( i + 1);
-    if (i > 11) {
+    if (i === 10) {
+        i = 0;
+        printModal(i + 1);
         console.log('heyNext')
-
-        
     }
 }
 
