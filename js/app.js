@@ -24,6 +24,7 @@ fetch('https://randomuser.me/api/?results=12')
         mockup(); 
 
     })
+    
 
 // Esta funcion se ejecuta cuando Fetch resuelve la promesa
 function mockup() {
@@ -169,10 +170,8 @@ function nextModal(i) {
 //Funcion que cierra el Modal Container
 function closeModal() {
   console.log('Works closeModal')
-
     let modalContainerButton = document.querySelector('.modal-container')
     modalContainerButton.style.display = 'none';
-    
     mockup();
     
 }
