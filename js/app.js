@@ -37,7 +37,7 @@ function mockup() {
                         <img class="card-img" src="${empleados[i].picture.medium}" alt="profile picture">
                     </div>
                     <div class="card-info-container">
-                        <h3 id="name" class="card-name cap">${empleados[i].name.first} , ${empleados[i].name.last}</h3>
+                        <h3 id="name" class="card-name cap">${empleados[i].name.first}  ${empleados[i].name.last}</h3>
                         <p class="card-text">${empleados[i].email}</p>
                         <p class="card-text cap">${empleados[i].location.city}</p>
                     </div>
@@ -99,7 +99,7 @@ function printModal(i) {
                     <button type="button" id="modal-close-btn" class="modal-close-btn" onClick="closeModal()"><strong>X</strong></button>
                     <div class="modal-info-container">
                         <img class="modal-img" src="${empleados[i].picture.large}" alt="profile picture">
-                        <h3 id="name" class="modal-name cap">${empleados[i].name.first}, ${empleados[i].name.last}</h3>
+                        <h3 id="name" class="modal-name cap">${empleados[i].name.first} ${empleados[i].name.last}</h3>
                         <p class="modal-text">${empleados[i].email}</p>
                         <p class="modal-text cap">${empleados[i].location.state}</p>
                         <hr>
