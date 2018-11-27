@@ -78,37 +78,24 @@ submit.addEventListener('click', ()=>{
 })
 //=================Finishing Listener for Form Submit========================//
 function filter(empleado) {
-//Guardando todos los elementos de la coleccion de empleados
     let card1 = document.querySelectorAll('.card')
-
-//Aplicando un ciclo 'for' para iterar con la coleccion guardada en variable 'card1' 
-    for (let i = 0; i < card1.length; i++) {
-
-//En esta linea guardamos el contenido que tiene el elemento con la clase 'card-name'
-        let personName = card1[i].querySelector('.card-name').textContent;
-
-//Si el contenido del valor del elemento es '0'? no se despliega nada 
-//Y dejamos los elementos tal cual
-        if (personName.indexOf(empleado) === 0) {
-                console.log(card1[i])
-                card1[i].style.display = "";
-
-//De otra forma mostramos los elementos que coincidan con la busqueda del usuario
-        } else {
-                console.log(card1[i])
-                card1[i].style.display = "none";
+        for (let i = 0; i < card1.length; i++) {
+            let personName = card1[i].querySelector('.card-name').textContent;
+                if (personName.indexOf(empleado) === 0) {
+                        console.log(card1[i])
+                        card1[i].style.display = "";
+                } else {
+                        console.log(card1[i])
+                        card1[i].style.display = "none";
+                }
         }
-    }
 }
 
 //Funcion que imprime el Modal Container
 
 let modalC = document.createElement('div')
-
 function printModal(i) {
     console.log("Modal container works :)")
-
-    //let modalC = document.createElement('div')
     let birthday = empleados[i].dob.date;
     birthday = birthday.substring(0, birthday.indexOf('T'));
      let modalContainer = `
@@ -136,8 +123,7 @@ function printModal(i) {
 
     modalC.innerHTML = modalContainer;
     gallery.parentNode.insertBefore(modalC, gallery)
-    //gallery.innerHTML = modalContainer;
-
+    modalC.style.display = 'block'
 }
 
 //<button type="button" id="modal-prev" class="modal-prev btn" onClick="printModal(${i-1})">Prev</button>
@@ -145,7 +131,6 @@ function printModal(i) {
 
 function prevModal(i) {
     console.log('function prevModal works :)')
-    
     if (i === 0){
         i = 12;
         printModal(i-1);
@@ -156,7 +141,6 @@ function prevModal(i) {
 }
 function nextModal(i) {
     console.log('function nextModal works :)')    
-    
     if (i === 11) {
         i = -1;
         printModal(i+1);
@@ -169,13 +153,7 @@ function nextModal(i) {
 //Funcion que cierra el Modal Container
 function closeModal() {
   console.log('Works closeModal')
-    // modalC.style.display = 'none'
-    //let modalContainerButton = document.querySelector('.modal-container')
-    //gallery.style.display = 'block';
-    //modalContainerButton.style.display = 'block';
     mockup();
-    modalC.style.display = 'none'
-    
 }
 
 
