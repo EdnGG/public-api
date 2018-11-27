@@ -29,7 +29,6 @@ fetch('https://randomuser.me/api/?results=12')
 // Esta funcion se ejecuta cuando Fetch resuelve la promesa
 function mockup() {
     let html = '';
-    
     for (let i = 0; i < empleados.length; i += 1) {
         console.log(empleados.length)
 
@@ -48,7 +47,6 @@ function mockup() {
                 </div>
             `
         gallery.innerHTML = html;
-        
     }
 }
 
@@ -79,9 +77,6 @@ submit.addEventListener('click', ()=>{
     filter (empleado)
 })
 //=================Finishing Listener for Form Submit========================//
-
- 
-
 function filter(empleado) {
 //Guardando todos los elementos de la coleccion de empleados
     let card1 = document.querySelectorAll('.card')
@@ -107,35 +102,13 @@ function filter(empleado) {
 }
 
 //Funcion que imprime el Modal Container
-// let modalContainer = `
-//             <div class="modal-container">
-//                 <div class="modal">
-//                     <button type="button" id="modal-close-btn" class="modal-close-btn" onClick="closeModal()"><strong>X</strong></button>
-//                     <div class="modal-info-container">
-//                         <img class="modal-img" src="${empleados[i].picture.large}" alt="profile picture">
-//                         <h3 id="name" class="modal-name cap">${empleados[i].name.first}</h3>
-//                         <p class="modal-text">${empleados[i].email}</p>
-//                         <p class="modal-text cap">${empleados[i].location.city}</p>
-//                         <hr>
-//                             <p class="modal-text">Phone: ${empleados[i].phone}</p>
-//                             <p class="modal-text">${empleados[i].location.city} , ${empleados[i].location.state}</p>
-//                             <p class="modal-text">Birthday: ${birthday}</p>
-//                     </div>
-//                 </div>
 
-
-//                 <div class="modal-btn-container">                   
-//                     <button type="button" id="modal-prev" class="modal-prev btn" onClick="prevModal(${i})">Prev</button>
-//                     <button type="button" id="modal-next" class="modal-next btn" onClick="nextModal(${i})">Next</button>
-//                 </div>
-//             </div>`
-// modalContainer.style.display = 'none'
-
-// const modal = document.querySelector('.modal-container')
-// modal.style.display = 'none';
+let modalC = document.createElement('div')
 
 function printModal(i) {
     console.log("Modal container works :)")
+
+    //let modalC = document.createElement('div')
     let birthday = empleados[i].dob.date;
     birthday = birthday.substring(0, birthday.indexOf('T'));
      let modalContainer = `
@@ -160,14 +133,12 @@ function printModal(i) {
                     <button type="button" id="modal-next" class="modal-next btn" onClick="nextModal(${i})">Next</button>
                 </div>
             </div>`
-    
-    gallery.innerHTML = modalContainer;
-    //modalContainer.style.display = 'none'
-    //modalContainer.style.display = 'block'
+
+    modalC.innerHTML = modalContainer;
+    gallery.parentNode.insertBefore(modalC, gallery)
+    //gallery.innerHTML = modalContainer;
 
 }
-
-
 
 //<button type="button" id="modal-prev" class="modal-prev btn" onClick="printModal(${i-1})">Prev</button>
 //<button type="button" id="modal-next" class="modal-next btn" onClick="printModal(${i+1})">Next</button>
@@ -198,10 +169,12 @@ function nextModal(i) {
 //Funcion que cierra el Modal Container
 function closeModal() {
   console.log('Works closeModal')
+    // modalC.style.display = 'none'
     //let modalContainerButton = document.querySelector('.modal-container')
     //gallery.style.display = 'block';
     //modalContainerButton.style.display = 'block';
     mockup();
+    modalC.style.display = 'none'
     
 }
 
