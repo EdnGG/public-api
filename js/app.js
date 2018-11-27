@@ -3,7 +3,7 @@ $.ajax({
     url: 'https://randomuser.me/api/?results=12&inc=name,location,email,picture,cell,dob&nat=NZ,US',
     dataType: 'json',
     success: function (data) {
-        console.log(`Request con Ajax:`, data);
+        //console.log(`Request con Ajax:`, data);
     }
 });
 
@@ -19,7 +19,7 @@ fetch('https://randomuser.me/api/?results=12')
     .then(data =>  {
         //La respuesta de fetch se asigna al array 'empleados'
         empleados = data.results 
-        console.log(`Request con Fetch:`, empleados)
+        //console.log(`Request con Fetch:`, empleados)
         //Funcion callback que se encargara de pintar los empleados de la galeria
         mockup(); 
 
@@ -29,12 +29,11 @@ fetch('https://randomuser.me/api/?results=12')
 // Esta funcion se ejecuta cuando Fetch resuelve la promesa
 function mockup() {
     let html = '';
-    for (let i = 0; i < empleados.length; i += 1) {
-        console.log(empleados.length)
-
+        for (let i = 0; i < empleados.length; i += 1) {
+            //console.log(empleados.length)
 //En el metodo printModal() se pasa por parametro el index de array empleados obtenido de la 
 //iteracion con el ciclo 'for' y  guardado con el nombre de la variable 'i'
-        html +=
+            html +=
             `   <div class="card" onClick="printModal('${i}')">
                 <div class="card-img-container">
                     <img class="card-img" src="${empleados[i].picture.medium}" alt="profile picture">
@@ -46,47 +45,47 @@ function mockup() {
                 </div>
                 </div>
             `
-        gallery.innerHTML = html;
+            gallery.innerHTML = html;
     }
 }
 
 // Selecionando y guardando el container donde estara el formulario de busqueda
 const formContainer = document.querySelector('.search-container')
+
 // Creando el formulario de busqueda
 const formBrowser = ` 
     <form action="#" method="get">
         <input type="search" id="search-input" class="search-input" placeholder="Search...">
         <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
     </form>`
+
 //Agregandolo al documento
 formContainer.innerHTML = formBrowser;
 
 
-//=================Starting Event Listener for Form Submit========================//
 //Seleccionando y alamcenando en variables los dos text input del buscador
 const searchInput = document.getElementById('search-input');
 const submit = document.getElementById('search-submit');
 
 //Agregando el eventListener al boton 'submit'
 submit.addEventListener('click', ()=>{
-
-//Guardando el valor que el cliente escriba en el campo searchInput 
+    //Guardando el valor que el cliente escriba en el campo searchInput 
     let empleado = searchInput.value.toLowerCase()
-
-// Ejecutando la  funcion filter y pasando por parametro la variable 'empleado' 
+    // Ejecutando la  funcion filter y pasando por parametro la variable 'empleado' 
     filter (empleado)
 })
-//=================Finishing Listener for Form Submit========================//
+
 function filter(empleado) {
     let card1 = document.querySelectorAll('.card')
         for (let i = 0; i < card1.length; i++) {
             let personName = card1[i].querySelector('.card-name').textContent;
                 if (personName.indexOf(empleado) === 0) {
-                        console.log(card1[i])
-                        card1[i].style.display = "";
+                    console.log(card1[i])
+                    card1[i].style.display = "";
+
                 } else {
-                        console.log(card1[i])
-                        card1[i].style.display = "none";
+                    console.log(card1[i])
+                    card1[i].style.display = "none";
                 }
         }
 }
@@ -95,7 +94,7 @@ function filter(empleado) {
 
 let modalC = document.createElement('div')
 function printModal(i) {
-    console.log("Modal container works :)")
+    //console.log("Modal container works :)")
     let birthday = empleados[i].dob.date;
     birthday = birthday.substring(0, birthday.indexOf('T'));
      let modalContainer = `
@@ -130,7 +129,7 @@ function printModal(i) {
 //<button type="button" id="modal-next" class="modal-next btn" onClick="printModal(${i+1})">Next</button>
 
 function prevModal(i) {
-    console.log('function prevModal works :)')
+    //console.log('function prevModal works :)')
     if (i === 0){
         i = 12;
         printModal(i-1);
@@ -140,7 +139,7 @@ function prevModal(i) {
     }
 }
 function nextModal(i) {
-    console.log('function nextModal works :)')    
+    //console.log('function nextModal works :)')    
     if (i === 11) {
         i = -1;
         printModal(i+1);
@@ -152,8 +151,9 @@ function nextModal(i) {
 
 //Funcion que cierra el Modal Container
 function closeModal() {
-  console.log('Works closeModal')
+    //console.log('Works closeModal')
     mockup();
+    modalC.style.display = 'none'
 }
 
 
