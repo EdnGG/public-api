@@ -144,12 +144,12 @@ function printModal(i) {
                     <button type="button" id="modal-close-btn" class="modal-close-btn" onClick="closeModal()"><strong>X</strong></button>
                     <div class="modal-info-container">
                         <img class="modal-img" src="${empleados[i].picture.large}" alt="profile picture">
-                        <h3 id="name" class="modal-name cap">${empleados[i].name.first}</h3>
+                        <h3 id="name" class="modal-name cap">${empleados[i].name.first}, ${empleados[i].name.last}</h3>
                         <p class="modal-text">${empleados[i].email}</p>
-                        <p class="modal-text cap">${empleados[i].location.city}</p>
+                        <p class="modal-text cap">${empleados[i].location.state}</p>
                         <hr>
                             <p class="modal-text">Phone: ${empleados[i].phone}</p>
-                            <p class="modal-text">${empleados[i].location.city} , ${empleados[i].location.state}</p>
+                            <p class="modal-text">${empleados[i].location.street}, ${empleados[i].location.city}, ${empleados[i].location.state}, ${empleados[i].location.postcode}</p>
                             <p class="modal-text">Birthday: ${birthday}</p>
                     </div>
                 </div>
