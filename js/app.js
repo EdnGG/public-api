@@ -43,11 +43,12 @@ function mockup() {
                 <div class="card-info-container">
                     <h3 id="name" class="card-name cap">${empleados[i].name.first} , ${empleados[i].name.last}</h3>
                     <p class="card-text">${empleados[i].email}</p>
-                    <p class="card-text cap">${empleados[i].location.city}, ${empleados[i].location.state}</p>
+                    <p class="card-text cap">${empleados[i].location.city}</p>
                 </div>
                 </div>
             `
         gallery.innerHTML = html;
+        
     }
 }
 
@@ -106,11 +107,38 @@ function filter(empleado) {
 }
 
 //Funcion que imprime el Modal Container
+// let modalContainer = `
+//             <div class="modal-container">
+//                 <div class="modal">
+//                     <button type="button" id="modal-close-btn" class="modal-close-btn" onClick="closeModal()"><strong>X</strong></button>
+//                     <div class="modal-info-container">
+//                         <img class="modal-img" src="${empleados[i].picture.large}" alt="profile picture">
+//                         <h3 id="name" class="modal-name cap">${empleados[i].name.first}</h3>
+//                         <p class="modal-text">${empleados[i].email}</p>
+//                         <p class="modal-text cap">${empleados[i].location.city}</p>
+//                         <hr>
+//                             <p class="modal-text">Phone: ${empleados[i].phone}</p>
+//                             <p class="modal-text">${empleados[i].location.city} , ${empleados[i].location.state}</p>
+//                             <p class="modal-text">Birthday: ${birthday}</p>
+//                     </div>
+//                 </div>
+
+
+//                 <div class="modal-btn-container">                   
+//                     <button type="button" id="modal-prev" class="modal-prev btn" onClick="prevModal(${i})">Prev</button>
+//                     <button type="button" id="modal-next" class="modal-next btn" onClick="nextModal(${i})">Next</button>
+//                 </div>
+//             </div>`
+// modalContainer.style.display = 'none'
+
+// const modal = document.querySelector('.modal-container')
+// modal.style.display = 'none';
+
 function printModal(i) {
     console.log("Modal container works :)")
     let birthday = empleados[i].dob.date;
     birthday = birthday.substring(0, birthday.indexOf('T'));
-    let modalContainer = `
+     let modalContainer = `
             <div class="modal-container">
                 <div class="modal">
                     <button type="button" id="modal-close-btn" class="modal-close-btn" onClick="closeModal()"><strong>X</strong></button>
@@ -120,9 +148,9 @@ function printModal(i) {
                         <p class="modal-text">${empleados[i].email}</p>
                         <p class="modal-text cap">${empleados[i].location.city}</p>
                         <hr>
-                            <p class="modal-text">${empleados[i].phone}</p>
+                            <p class="modal-text">Phone: ${empleados[i].phone}</p>
                             <p class="modal-text">${empleados[i].location.city} , ${empleados[i].location.state}</p>
-                            <p class="modal-text">${birthday}</p>
+                            <p class="modal-text">Birthday: ${birthday}</p>
                     </div>
                 </div>
 
@@ -132,46 +160,47 @@ function printModal(i) {
                     <button type="button" id="modal-next" class="modal-next btn" onClick="nextModal(${i})">Next</button>
                 </div>
             </div>`
+    
     gallery.innerHTML = modalContainer;
+    //modalContainer.style.display = 'none'
+    //modalContainer.style.display = 'block'
+
 }
+
+
 
 //<button type="button" id="modal-prev" class="modal-prev btn" onClick="printModal(${i-1})">Prev</button>
 //<button type="button" id="modal-next" class="modal-next btn" onClick="printModal(${i+1})">Next</button>
 
 function prevModal(i) {
     console.log('function prevModal works :)')
-
-//Aqui va a mostrar el elemento anterior en el que se encuentra ahora
-    printModal(i - 1);
     
-    if ( i === 1){
-//Aqui se le asigna un nuevo valor a 'i' que va a contener el numero 
-//total de empleados 
-        i = 11;
-//aqui se llama a la function 'printModal()' ya con el nuevo valor de 'i' - 1
-//que da como resultado el ultimo elemento del array 'empleados'
-        printModal(i -1);
+    if (i === 0){
+        i = 12;
+        printModal(i-1);
         console.log('heyPrev')
-        
+    } else {
+        printModal( i-1)
     }
 }
-
 function nextModal(i) {
     console.log('function nextModal works :)')    
-
-    printModal( i + 1);
-    if (i === 10) {
-        i = 0;
-        printModal(i + 1);
+    
+    if (i === 11) {
+        i = -1;
+        printModal(i+1);
         console.log('heyNext')
+    } else {
+        printModal(i+1);
     }
 }
 
 //Funcion que cierra el Modal Container
 function closeModal() {
   console.log('Works closeModal')
-    let modalContainerButton = document.querySelector('.modal-container')
-    modalContainerButton.style.display = 'none';
+    //let modalContainerButton = document.querySelector('.modal-container')
+    //gallery.style.display = 'block';
+    //modalContainerButton.style.display = 'block';
     mockup();
     
 }
