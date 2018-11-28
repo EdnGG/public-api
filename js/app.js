@@ -70,7 +70,7 @@ submit.addEventListener('click', ()=>{
     let empleado = searchInput.value.toLowerCase()
     // Ejecutando la  funcion filter y pasando por parametro la variable 'empleado' 
     filter (empleado)
-})
+//})
 
 function filter(empleado) {
     let card1 = document.querySelectorAll('.card')
@@ -85,6 +85,7 @@ function filter(empleado) {
                 }
         }
 }
+})
 
 //Funcion que imprime el Modal Container
 
@@ -123,20 +124,18 @@ function printModal(i) {
 }
 function prevModal(i) {
     //console.log('function prevModal works :)')
-    if (i === 0){
-        i = 12;
-        printModal(i-1);
-        //console.log('heyPrev')
+    if (i === 0) { 
+        console.log(i, empleados.length )
+        printModal(empleados.length -1)
     } else {
-        printModal( i-1)
+        printModal(i-1)
     }
 }
 function nextModal(i) {
     //console.log('function nextModal works :)')    
-    if (i === 11) {
-        i = -1;
-        printModal(i+1);
-        //console.log('heyNext')
+    if (i === empleados.length -1){
+        console.log(i, empleados.length)
+        printModal(0)
     } else {
         printModal(i+1);
     }
